@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Photos
+import MBProgressHUD
 
 class MenuViewController: UIViewController {
     
@@ -26,6 +27,9 @@ class MenuViewController: UIViewController {
     
     // variable to store image selected/taken
     private var image : UIImage = UIImage()
+    
+    // variable to store google vision results
+    var googleVisionResults : [GoogleVisionResult]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -181,21 +185,21 @@ class MenuViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "choseCamera" {
-            print("moving image first")
-            // pass image to PhotoIdentificationViewController
+            // pass image and results to PhotoIdentificationViewController
             let destinationVC = segue.destination as? PhotoIdentificationViewController
             
-            guard let vc = destinationVC else {
-                print("couldn't convert destination to photo id view controller")
+            // force unrwap results
+            guard let results = googleVisionResults else {
+                // error
+                print("error storing google vision results")
                 return
             }
             
-            print("conversion successful")
+            // add results to the view controller
+            destinationVC?.googleVisionResults = results
             
             // add image to the view controller
-            vc.image = self.image
-            
-            print("attached image")
+            destinationVC?.image = self.image
         }
     }
 }
@@ -208,6 +212,7 @@ extension MenuViewController : UINavigationControllerDelegate, UIImagePickerCont
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        // grab the UI image from info passed into this function
         var error = false
         if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             // assign to image
@@ -224,11 +229,41 @@ extension MenuViewController : UINavigationControllerDelegate, UIImagePickerCont
         // dismiss picker
         picker.dismiss(animated: true)
         
-        // perform segue to photo id scene if no error occurred
+        // if no error occurred, fetch google vision results
         if !error {
-            // perform segue to photo id scene
-            performSegue(withIdentifier: "choseCamera", sender: self)
+            // show loading screen
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            
+            // initialize Google Vision API Manager
+            let googleManager = GoogleVisionAPIManager()
+            
+            // designate self as the receiver of the fetchGoogleVisionResults callbacks
+            googleManager.delegate = self
+            
+            // pass image to object to fetch results
+            googleManager.fetchGoogleVisionResults(image: image)
         }
+    }
+}
+
+extension MenuViewController : GoogleVisionResultDelegate {
+    func googleResultsFound(results: [GoogleVisionResult]) {
+        // store results in local storage and update labels
+        self.googleVisionResults = results
+        
+        // pass results to photo id on the main UI thread
+        DispatchQueue.main.async {
+            // hide the loading screen
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            // segue to photo id scene
+            self.performSegue(withIdentifier: "choseCamera", sender: self)
+        }
+    }
+    
+    func googleResultsNotFound() {
+        // error
+        print("results not found!")
     }
 }
 

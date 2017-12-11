@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+struct WikipediaResult {
+    let title : String
+    let pageId : Int
+    let description : String
+}

@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 protocol GoogleVisionResultDelegate {
-    func resultsFound(results : [GoogleVisionResult])
-    func resultsNotFound()
+    func googleResultsFound(results : [GoogleVisionResult])
+    func googleResultsNotFound()
 }
 
 class GoogleVisionAPIManager {
@@ -22,17 +22,7 @@ class GoogleVisionAPIManager {
     private var key = "AIzaSyDn1LlLtVI73HaZDH4zICjRZmoSepZWOZ0"
     private var googleUrl = "https://vision.googleapis.com/v1/images:annotate"
     
-    // variable to store image to search/display
-    private var image : UIImage
-    
-    init () {
-        image = UIImage()
-    }
-    
     func fetchGoogleVisionResults(image : UIImage) {
-        // save photo for processing
-        self.image = image
-        
         // create URL request from components
         let url = googleUrl + "?key=\(key)"
         var request = URLRequest(url: URL(string: url)!)
@@ -52,7 +42,7 @@ class GoogleVisionAPIManager {
                 "features": [
                     [
                         "type": "LABEL_DETECTION",
-                        "maxResults": 5
+                        "maxResults": 10
                     ]
                 ]
             ]
@@ -92,7 +82,7 @@ class GoogleVisionAPIManager {
             // check for valid response with 200 (success)
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                 print("no valid response")
-                self.delegate?.resultsNotFound()
+                self.delegate?.googleResultsNotFound()
                 
                 return
             }
@@ -100,7 +90,7 @@ class GoogleVisionAPIManager {
             // ensure data is not null
             guard let data = data else {
                 print("data is null")
-                self.delegate?.resultsNotFound()
+                self.delegate?.googleResultsNotFound()
                 
                 return
             }
@@ -112,7 +102,7 @@ class GoogleVisionAPIManager {
             // ensure json structure matches what we expected
             guard let root = decodedRoot else {
                 print("json structure doesn't match expectation")
-                self.delegate?.resultsNotFound()
+                self.delegate?.googleResultsNotFound()
                 
                 return
             }
@@ -130,7 +120,7 @@ class GoogleVisionAPIManager {
             }
             
             // send result through the delegate
-            self.delegate?.resultsFound(results: googleResults)
+            self.delegate?.googleResultsFound(results: googleResults)
         }
         
         task.resume()

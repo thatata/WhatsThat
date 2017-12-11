@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Whats That-->
+        <!--Menu View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MenuViewController" customModule="whats_that" customModuleProvider="target" sceneMemberID="viewController">
@@ -56,7 +56,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Whats That" id="hFc-e3-7PC"/>
+                    <navigationItem key="navigationItem" id="hFc-e3-7PC"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -90,10 +90,10 @@
             </objects>
             <point key="canvasLocation" x="1274" y="712"/>
         </scene>
-        <!--Photo Identification-->
+        <!--Photo ID-->
         <scene sceneID="Fe7-Ag-gzr">
             <objects>
-                <viewController title="Photo Identification" id="G2h-nN-81N" customClass="PhotoIdentificationViewController" customModule="whats_that" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Photo ID" id="G2h-nN-81N" customClass="PhotoIdentificationViewController" customModule="whats_that" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="d0H-VE-Yot">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -124,26 +124,96 @@
                     <connections>
                         <outlet property="imageChosen" destination="2jN-IX-WiK" id="Sfe-B9-bOL"/>
                         <outlet property="resultsTable" destination="0Oa-RX-T9L" id="ou0-jA-CO8"/>
+                        <segue destination="nJV-41-ndI" kind="show" identifier="identifiedPhoto" id="34a-AV-MnZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FpF-eu-tEZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1274.4000000000001" y="-399.85007496251876"/>
         </scene>
-        <!--Photo Details View Controller-->
+        <!--Photo Details-->
         <scene sceneID="XeU-Yc-rxn">
             <objects>
-                <viewController id="nJV-41-ndI" customClass="PhotoDetailsViewController" customModule="whats_that" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Photo Details" id="nJV-41-ndI" customClass="PhotoDetailsViewController" customModule="whats_that" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eO4-CF-xFe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a7L-eZ-f9n">
+                                <rect key="frame" x="87" y="104" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="AL6-0R-YsI"/>
+                                    <constraint firstAttribute="width" constant="200" id="yc1-es-RAt"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CWg-IU-meg">
+                                <rect key="frame" x="42" y="617" width="30" height="30"/>
+                                <state key="normal" title="Wiki"/>
+                                <connections>
+                                    <action selector="wikiButtonPressed:" destination="nJV-41-ndI" eventType="touchUpInside" id="C6A-c7-AOT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gr8-Bg-cxB">
+                                <rect key="frame" x="163" y="617" width="49" height="30"/>
+                                <state key="normal" title="Tweets"/>
+                                <connections>
+                                    <action selector="tweetsButtonPressed:" destination="nJV-41-ndI" eventType="touchUpInside" id="hbK-DZ-mFz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EA3-ph-gq7">
+                                <rect key="frame" x="292" y="617" width="40" height="30"/>
+                                <state key="normal" title="Share"/>
+                                <connections>
+                                    <action selector="shareButtonPressed:" destination="nJV-41-ndI" eventType="touchUpInside" id="tSZ-0J-m85"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fxt-E0-Zis">
+                                <rect key="frame" x="42" y="333" width="290" height="252"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypx-0C-bqE">
+                                <rect key="frame" x="317" y="79" width="42" height="39"/>
+                                <state key="normal" image="notFavorited"/>
+                                <connections>
+                                    <action selector="favoriteButtonPressed:" destination="nJV-41-ndI" eventType="touchUpInside" id="LIt-jM-Hl6"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fxt-E0-Zis" firstAttribute="top" secondItem="a7L-eZ-f9n" secondAttribute="bottom" constant="29" id="2nB-sD-4ji"/>
+                            <constraint firstItem="etC-98-5lC" firstAttribute="bottom" secondItem="Gr8-Bg-cxB" secondAttribute="bottom" constant="20" id="9pg-0B-vIU"/>
+                            <constraint firstItem="EA3-ph-gq7" firstAttribute="top" secondItem="fxt-E0-Zis" secondAttribute="bottom" constant="32" id="AuI-kv-YGC"/>
+                            <constraint firstItem="fxt-E0-Zis" firstAttribute="leading" secondItem="etC-98-5lC" secondAttribute="leading" constant="42" id="DYt-wi-hUm"/>
+                            <constraint firstItem="ypx-0C-bqE" firstAttribute="top" secondItem="etC-98-5lC" secondAttribute="top" constant="15" id="Fdm-n1-26L"/>
+                            <constraint firstItem="etC-98-5lC" firstAttribute="bottom" secondItem="CWg-IU-meg" secondAttribute="bottom" constant="20" id="G0r-lL-S12"/>
+                            <constraint firstItem="a7L-eZ-f9n" firstAttribute="centerX" secondItem="etC-98-5lC" secondAttribute="centerX" id="GRg-Yr-uU8"/>
+                            <constraint firstItem="EA3-ph-gq7" firstAttribute="trailing" secondItem="fxt-E0-Zis" secondAttribute="trailing" id="GWH-Ij-Tcq"/>
+                            <constraint firstItem="Gr8-Bg-cxB" firstAttribute="top" secondItem="fxt-E0-Zis" secondAttribute="bottom" constant="32" id="HIs-Ax-AXE"/>
+                            <constraint firstItem="etC-98-5lC" firstAttribute="bottom" secondItem="ypx-0C-bqE" secondAttribute="bottom" constant="549" id="KOT-XM-vdn"/>
+                            <constraint firstItem="etC-98-5lC" firstAttribute="trailing" secondItem="ypx-0C-bqE" secondAttribute="trailing" constant="16" id="Nwv-fd-rvE"/>
+                            <constraint firstItem="CWg-IU-meg" firstAttribute="top" secondItem="fxt-E0-Zis" secondAttribute="bottom" constant="32" id="Olz-6e-rkw"/>
+                            <constraint firstItem="CWg-IU-meg" firstAttribute="leading" secondItem="fxt-E0-Zis" secondAttribute="leading" id="W2c-NW-KFQ"/>
+                            <constraint firstItem="Gr8-Bg-cxB" firstAttribute="centerX" secondItem="etC-98-5lC" secondAttribute="centerX" id="Zmp-p3-4Ia"/>
+                            <constraint firstItem="ypx-0C-bqE" firstAttribute="leading" secondItem="etC-98-5lC" secondAttribute="leading" constant="317" id="bIi-mn-8dp"/>
+                            <constraint firstItem="a7L-eZ-f9n" firstAttribute="top" secondItem="etC-98-5lC" secondAttribute="top" constant="40" id="gdk-z0-SoU"/>
+                            <constraint firstItem="fxt-E0-Zis" firstAttribute="centerX" secondItem="etC-98-5lC" secondAttribute="centerX" id="gqF-xs-SoO"/>
+                            <constraint firstItem="etC-98-5lC" firstAttribute="bottom" secondItem="EA3-ph-gq7" secondAttribute="bottom" constant="20" id="poh-so-kjs"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="etC-98-5lC"/>
                     </view>
+                    <connections>
+                        <outlet property="favoriteIcon" destination="ypx-0C-bqE" id="X46-G7-0mS"/>
+                        <outlet property="imageView" destination="a7L-eZ-f9n" id="CPq-k1-TsO"/>
+                        <outlet property="wikiText" destination="fxt-E0-Zis" id="53V-Nx-QIU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYB-my-SCX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2204" y="133"/>
+            <point key="canvasLocation" x="2152.8000000000002" y="-401.64917541229386"/>
         </scene>
         <!--Safari View Controller-->
         <scene sceneID="s7t-Lt-ba3">
@@ -194,4 +264,7 @@
             <point key="canvasLocation" x="-506" y="133"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="notFavorited" width="1280" height="1223"/>
+    </resources>
 </document>
