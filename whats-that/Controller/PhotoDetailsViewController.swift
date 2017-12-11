@@ -52,6 +52,19 @@ class PhotoDetailsViewController: UIViewController {
     }
     
     @IBAction func favoriteButtonPressed(_ sender: Any) {
+        // force unrwap wiki result and image to save
+        guard let result = wikiResult, let image = image else {
+            // wiki result has no data
+            print("error")
+            return
+        }
+        
+        // create favorited thing from WikipediaResult and build filename
+        let favoritedThing = FavoritedThing(title: result.title, description: result.description, imageFilename: result.title.trimmingCharacters(in: .whitespaces).appending(".jpg"))
+        
+        // save using persistance manager
+        PersistanceManager.sharedInstance.saveFavoritedThing(thing: favoritedThing, image: image)
+        
         // set favorite button icon
         favoriteIcon.setImage(UIImage(named: "favorited"), for: .normal)
     }

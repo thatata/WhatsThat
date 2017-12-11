@@ -24,6 +24,7 @@
 		F527F7AF1FDC46A8006E3F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F527F79E1FDC46A8006E3F7F /* Assets.xcassets */; };
 		F527F7B01FDC46A8006E3F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F527F79F1FDC46A8006E3F7F /* LaunchScreen.storyboard */; };
 		F527F7B11FDC46A8006E3F7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F527F7A11FDC46A8006E3F7F /* Main.storyboard */; };
+		F54AD9E11FDF33C10016C767 /* FavoritedThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AD9E01FDF33C10016C767 /* FavoritedThing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		F527F79E1FDC46A8006E3F7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F527F7A01FDC46A8006E3F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F527F7A21FDC46A8006E3F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F54AD9E01FDF33C10016C767 /* FavoritedThing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritedThing.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				F527F78E1FDC46A8006E3F7F /* GoogleVisionResult.swift */,
 				F527F78F1FDC46A8006E3F7F /* Codable */,
 				F527F7911FDC46A8006E3F7F /* WikipediaResult.swift */,
+				F54AD9E01FDF33C10016C767 /* FavoritedThing.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				F527F7AB1FDC46A8006E3F7F /* SafariViewController.swift in Sources */,
 				F527F7A51FDC46A8006E3F7F /* WikipediaResult.swift in Sources */,
 				F527F7AC1FDC46A8006E3F7F /* SearchTimelineViewController.swift in Sources */,
+				F54AD9E11FDF33C10016C767 /* FavoritedThing.swift in Sources */,
 				F527F7AA1FDC46A8006E3F7F /* FavoritePhotosTableViewController.swift in Sources */,
 				F527F7A61FDC46A8006E3F7F /* WikipediaAPIManager.swift in Sources */,
 				F527F7AE1FDC46A8006E3F7F /* MenuViewController.swift in Sources */,
