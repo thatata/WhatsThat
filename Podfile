@@ -7,4 +7,5 @@ target 'whats-that' do
 
   # Pods for whats-that
   pod 'MBProgressHUD', '~> 1.1.0'
+  pod 'TwitterKit'
 end

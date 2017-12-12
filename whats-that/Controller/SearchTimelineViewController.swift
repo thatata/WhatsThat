@@ -7,13 +7,30 @@
 //
 
 import UIKit
+import TwitterKit
 
-class SearchTimelineViewController: UIViewController {
+class SearchTimelineViewController: TWTRTimelineViewController {
+    
+    // variable to store search query
+    var searchQuery : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // force unwrap search query
+        guard let query = searchQuery else {
+            print("error")
+            return
+        }
+        
+        // create twitter serach timeline data source
+        let dataSource = TWTRSearchTimelineDataSource(searchQuery: query, apiClient: TWTRAPIClient())
+        
+        // set result type to mixed (both popular and real time results)
+        dataSource.resultType = "mixed"
+        
+        // set to self
+        self.dataSource = dataSource
     }
 
     override func didReceiveMemoryWarning() {

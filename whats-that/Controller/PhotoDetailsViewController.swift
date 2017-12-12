@@ -65,7 +65,7 @@ class PhotoDetailsViewController: UIViewController {
         }
         
         // set text (if description is blank, change description)
-        wikiText.text = result.description.isEmpty ? "No description available." : result.description
+        wikiText.text = result.description.isEmpty ? "No description available. Check the Wikipedia link for more information!" : result.description
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -82,6 +82,19 @@ class PhotoDetailsViewController: UIViewController {
             
             // set page Id
             vc.pageId = result.pageId
+        } else if segue.identifier == "showTweets" {
+            // pass title as search query to the vc
+            let destinationVC = segue.destination as? SearchTimelineViewController
+            
+            // unwrap title and destination vc
+            guard let result = wikiResult,
+                  let vc = destinationVC else {
+                    print("error")
+                    return
+            }
+            
+            // set title
+            vc.searchQuery = result.title
         }
     }
     
@@ -95,7 +108,8 @@ class PhotoDetailsViewController: UIViewController {
     }
     
     @IBAction func tweetsButtonPressed(_ sender: Any) {
-        print("tweets button pressed")
+        // perform segue to SearchTimelineViewController
+        performSegue(withIdentifier: "showTweets", sender: self)
     }
     
     @IBAction func shareButtonPressed(_ sender: Any) {
