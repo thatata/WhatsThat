@@ -71,13 +71,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoriteCell" id="h7P-I1-yV5">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoriteCell" id="h7P-I1-yV5" customClass="FavoriteTableViewCell" customModule="whats_that" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h7P-I1-yV5" id="iHg-jC-CyB">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfo-LA-0AU">
+                                            <rect key="frame" x="89" y="11" width="240" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6nu-qX-ZDw">
+                                            <rect key="frame" x="22" y="1" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="T7J-gQ-cOt"/>
+                                                <constraint firstAttribute="width" constant="40" id="sey-yf-hD2"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="cfo-LA-0AU" firstAttribute="leading" secondItem="iHg-jC-CyB" secondAttribute="leading" constant="89" id="F6m-Vb-fKI"/>
+                                        <constraint firstItem="6nu-qX-ZDw" firstAttribute="centerY" secondItem="iHg-jC-CyB" secondAttribute="centerY" id="XDH-3D-jcb"/>
+                                        <constraint firstItem="6nu-qX-ZDw" firstAttribute="leading" secondItem="iHg-jC-CyB" secondAttribute="leading" constant="22" id="gnP-OS-Yn2"/>
+                                        <constraint firstItem="cfo-LA-0AU" firstAttribute="centerY" secondItem="iHg-jC-CyB" secondAttribute="centerY" id="iB4-3I-gf3"/>
+                                        <constraint firstItem="cfo-LA-0AU" firstAttribute="leading" secondItem="6nu-qX-ZDw" secondAttribute="trailing" constant="27" id="uXj-Sf-XdQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="cfo-LA-0AU" secondAttribute="trailing" constant="46" id="ucR-C3-0fL"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="cellImage" destination="6nu-qX-ZDw" id="OoY-6X-hg9"/>
+                                    <outlet property="cellText" destination="cfo-LA-0AU" id="E4a-IK-ZmM"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -91,7 +118,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="clq-5o-YeF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1274" y="712"/>
+            <point key="canvasLocation" x="1272.8" y="711.99400299850083"/>
         </scene>
         <!--Photo ID-->
         <scene sceneID="Fe7-Ag-gzr">

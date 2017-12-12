@@ -66,10 +66,16 @@ class FavoritePhotosTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // get cell using favoriteCell reuse id
-        let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as! FavoriteTableViewCell
 
-        // set text
-        cell.textLabel?.text = favorites[indexPath.row].thingTitle
+        // set text (capitalized)
+        cell.cellText.text = favorites[indexPath.row].thingTitle.capitalized
+        
+        // load image of favorite from persistance manager
+        let image = PersistanceManager.sharedInstance.loadImage(filename: favorites[indexPath.row].imageFilename)
+        
+        // set image
+        cell.cellImage.image = image
         
         // set the alignment to center
         cell.textLabel?.textAlignment = .center
