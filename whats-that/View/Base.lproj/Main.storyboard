@@ -85,6 +85,9 @@
                             <outlet property="delegate" destination="2XD-qc-6WJ" id="Gy6-5b-KUO"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="nJV-41-ndI" kind="show" identifier="showDetails" id="yUD-OI-o9B"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="clq-5o-YeF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -213,7 +216,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYB-my-SCX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2152.8000000000002" y="-401.64917541229386"/>
+            <point key="canvasLocation" x="2146" y="104"/>
         </scene>
         <!--Safari View Controller-->
         <scene sceneID="s7t-Lt-ba3">
@@ -267,4 +270,7 @@
     <resources>
         <image name="notFavorited" width="1280" height="1223"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="yUD-OI-o9B"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -37,15 +37,35 @@ class PhotoDetailsViewController: UIViewController {
         wikiText.setContentOffset(.zero, animated: false)
         wikiText.allowsEditingTextAttributes = false
         
-        // show correct favorite icon depending on isFavorited var
+        // check isFavorited if we're selecting a favorite or not
         if isFavorited {
+            // if so, initialize WikipediaResult object for processing
+            
+            // unwrap favorited thing
+            guard let thing = favoritedThing else {
+                print("error")
+                return
+            }
+            
+            // init wiki result with favorited thing attributes
+            wikiResult = WikipediaResult(title: thing.thingTitle, pageId: thing.wikiPageId, description: thing.thingDescription)
+            
+            // set appropriate favorite icon
             favoriteIcon.setImage(UIImage(named: "favorited"), for: .normal)
         } else {
+            // otherwise, WikipediaResult var is already set
+            // set appropriate favorite icon
             favoriteIcon.setImage(UIImage(named: "notFavorited"), for: .normal)
         }
         
-        // set the text
-        wikiText.text = wikiResult?.description
+        // unwrap Wikipedia result
+        guard let result = wikiResult else {
+            print("error")
+            return
+        }
+        
+        // set text (if description is blank, change description)
+        wikiText.text = result.description.isEmpty ? "No description available." : result.description
     }
     
     override func didReceiveMemoryWarning() {
@@ -99,7 +119,7 @@ class PhotoDetailsViewController: UIViewController {
         filename = filename.appending(".jpg")
         
         // create favorited thing from WikipediaResult
-        let favoritedThing = FavoritedThing(title: result.title, description: result.description, imageFilename: filename)
+        let favoritedThing = FavoritedThing(title: result.title, description: result.description, imageFilename: filename, wikiPageId: result.pageId)
         
         // save favorited thing in local storage
         self.favoritedThing = favoritedThing

@@ -76,6 +76,9 @@ class PhotoIdentificationViewController: UIViewController, UITableViewDelegate, 
     
     // function to handle when the user selects a row in the table
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // finish select animation
+        resultsTable.deselectRow(at: indexPath, animated: true)
+        
         // show loading screen
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
@@ -88,6 +91,7 @@ class PhotoIdentificationViewController: UIViewController, UITableViewDelegate, 
         // call function to fetch wiki results with selected row
         wikiAPIManager.fetchWikipediaResults(searchTerm: googleVisionResults[indexPath.row].description)
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "identifiedPhoto" {
