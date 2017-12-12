@@ -68,12 +68,30 @@ class PhotoDetailsViewController: UIViewController {
         wikiText.text = result.description.isEmpty ? "No description available." : result.description
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showWiki" {
+            // pass pageId of the wikipedia page to vc
+            let destinationVC = segue.destination as? SafariViewController
+            
+            // unwrap page id and destination vc
+            guard let result = wikiResult,
+                  let vc = destinationVC else {
+                print("error")
+                return
+            }
+            
+            // set page Id
+            vc.pageId = result.pageId
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @IBAction func wikiButtonPressed(_ sender: Any) {
-        print("wiki button pressed")
+    @IBAction func wikiButtonPressed(_ sender: Any) {        
+        // perform segue to SafariViewController
+        performSegue(withIdentifier: "showWiki", sender: self)
     }
     
     @IBAction func tweetsButtonPressed(_ sender: Any) {

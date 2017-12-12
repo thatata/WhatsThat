@@ -239,6 +239,7 @@
                         <outlet property="favoriteIcon" destination="ypx-0C-bqE" id="X46-G7-0mS"/>
                         <outlet property="imageView" destination="a7L-eZ-f9n" id="CPq-k1-TsO"/>
                         <outlet property="wikiText" destination="fxt-E0-Zis" id="53V-Nx-QIU"/>
+                        <segue destination="xOe-kc-FNB" kind="show" identifier="showWiki" id="Uce-pg-2IA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYB-my-SCX" userLabel="First Responder" sceneMemberID="firstResponder"/>
