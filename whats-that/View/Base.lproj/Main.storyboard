@@ -40,7 +40,7 @@
                                         <rect key="frame" x="0.0" y="67" width="154.5" height="30"/>
                                         <state key="normal" title="Favorites"/>
                                         <connections>
-                                            <segue destination="2XD-qc-6WJ" kind="show" id="ocZ-xy-l9o"/>
+                                            <segue destination="2XD-qc-6WJ" kind="show" identifier="favoritesChosen" id="ocZ-xy-l9o"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -62,16 +62,16 @@
             </objects>
             <point key="canvasLocation" x="476" y="132.68365817091455"/>
         </scene>
-        <!--Favorite Photos Table View Controller-->
+        <!--Favorites-->
         <scene sceneID="Rke-Md-olx">
             <objects>
-                <tableViewController id="2XD-qc-6WJ" customClass="FavoritePhotosTableViewController" customModule="whats_that" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Favorites" id="2XD-qc-6WJ" customClass="FavoritePhotosTableViewController" customModule="whats_that" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Wsz-P5-rTk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="h7P-I1-yV5">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoriteCell" id="h7P-I1-yV5">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h7P-I1-yV5" id="iHg-jC-CyB">

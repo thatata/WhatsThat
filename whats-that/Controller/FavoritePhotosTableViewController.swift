@@ -9,6 +9,9 @@
 import UIKit
 
 class FavoritePhotosTableViewController: UITableViewController {
+    
+    // variable to hold favorited things
+    var favorites = [FavoritedThing]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,25 +30,23 @@ class FavoritePhotosTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return favorites.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        // get cell using favoriteCell reuse id
+        let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath)
 
-        // Configure the cell...
+        // set text
+        cell.textLabel?.text = favorites[indexPath.row].thingTitle
+        
+        // set the alignment to center
+        cell.textLabel?.textAlignment = .center
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

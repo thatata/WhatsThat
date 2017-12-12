@@ -200,6 +200,15 @@ class MenuViewController: UIViewController {
             
             // add image to the view controller
             destinationVC?.image = self.image
+        } else if segue.identifier == "favoritesChosen" {
+            // get the favorited things from persistance manager
+            let things = PersistanceManager.sharedInstance.fetchFavoritedThings()
+            
+            // pass to the favorites table vc
+            let destinationVC = segue.destination as? FavoritePhotosTableViewController
+            
+            // add favorited things to controller
+            destinationVC?.favorites = things
         }
     }
 }

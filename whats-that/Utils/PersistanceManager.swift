@@ -48,7 +48,94 @@ class PersistanceManager {
         userDefaults.set(data, forKey: favoritedThingKey)
     }
     
-    func saveImage(image : UIImage, filename : String) {
+    func removeFavoritedThing(thing : FavoritedThing) {
+        // create user defaults
+        let userDefaults = UserDefaults.standard
         
+        // get all favorited things and remove the specified thing
+        var favoritedThings = fetchFavoritedThings()
+        
+        // variable for index to remove
+        var idx = 0
+        
+        // loop through each favorited thing to find one to remove
+        for favoritedThing in favoritedThings {
+            // check if all attributes match
+            if favoritedThing.thingTitle == thing.thingTitle &&
+                favoritedThing.thingDescription == thing.thingDescription &&
+                favoritedThing.imageFilename == thing.imageFilename {
+                // if so, remove from array
+                favoritedThings.remove(at: idx)
+                break
+            }
+            // increment index
+            idx += 1
+        }
+        
+        // save in user defaults
+        let data = NSKeyedArchiver.archivedData(withRootObject: favoritedThings)
+        userDefaults.set(data, forKey: favoritedThingKey)
+    }
+    
+    // separate function to detect if file already exists
+    func fileExistsInDocumentsDirectory(filename : String) -> Bool {
+        // get file manager
+        let fileManager = FileManager.default
+        
+        // get image path
+        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(filename)
+        
+        // check if image is stored in documents directory, and return appropraite bool
+        if fileManager.fileExists(atPath: imagePath) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    func loadImage(filename : String) -> UIImage? {
+        // get file manager
+        let fileManager = FileManager.default
+        
+        // get image path
+        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(filename)
+        
+        // check if image is stored in documents directory
+        if fileManager.fileExists(atPath: imagePath) {
+            // if so, return the UIImage
+            return UIImage(contentsOfFile: imagePath)
+        } else {
+            // otherwise, return nil
+            return nil
+        }
+//        let fileManager = NSFileManager.defaultManager()
+//        let imagePAth = (self.getDirectoryPath() as NSString).stringByAppendingPathComponent("apple.jpg")
+//        if fileManager.fileExistsAtPath(imagePAth){
+//            self.imageView.image = UIImage(contentsOfFile: imagePAth)
+//        }else{
+//            print("No Image")
+//        }
+    }
+    
+    func saveImage(image : UIImage, filename : String) {
+        // get file manager
+        let fileManager = FileManager.default
+        
+        // get paths
+        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(filename)
+        
+        // get image data using JPEG representation
+        let imageData = UIImageJPEGRepresentation(image, 0.5)
+        
+        // create file at path
+        fileManager.createFile(atPath: paths, contents: imageData, attributes: nil)
+        
+//        let fileManager = NSFileManager.defaultManager()
+//        let paths = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent("apple.jpg")
+//        let image = UIImage(named: "apple.jpg")
+//        print(paths)
+//        let imageData = UIImageJPEGRepresentation(image!, 0.5)
+//        fileManager.createFileAtPath(paths as String, contents: imageData, attributes: nil)
     }
 }

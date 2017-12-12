@@ -16,6 +16,12 @@ class PhotoDetailsViewController: UIViewController {
     // store the wiki results of the selected ID
     var wikiResult : WikipediaResult?
     
+    // variable to keep track of if this photo has been favorited (default is false)
+    var isFavorited = false
+    
+    // variable to store FavoritedThing object (if it exists)
+    var favoritedThing : FavoritedThing?
+    
     // outlets for the image view and label
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var wikiText: UITextView!
@@ -30,6 +36,13 @@ class PhotoDetailsViewController: UIViewController {
         // show the top of the text first, and don't let user edit
         wikiText.setContentOffset(.zero, animated: false)
         wikiText.allowsEditingTextAttributes = false
+        
+        // show correct favorite icon depending on isFavorited var
+        if isFavorited {
+            favoriteIcon.setImage(UIImage(named: "favorited"), for: .normal)
+        } else {
+            favoriteIcon.setImage(UIImage(named: "notFavorited"), for: .normal)
+        }
         
         // set the text
         wikiText.text = wikiResult?.description
@@ -52,21 +65,64 @@ class PhotoDetailsViewController: UIViewController {
     }
     
     @IBAction func favoriteButtonPressed(_ sender: Any) {
-        // force unrwap wiki result and image to save
+        // check if thing is already favorited
+        if isFavorited {
+            // if so, remove favorite
+            removeFavorite()
+        } else {
+            // otherwise, add favorite
+            addFavorite()
+        }
+        
+        // set favorite button icon
+        favoriteIcon.setImage(isFavorited ? UIImage(named: "favorited") : UIImage(named: "notFavorited"), for: .normal)
+    }
+    
+    func addFavorite() {
+        // force unwrap wiki result and image to save
         guard let result = wikiResult, let image = image else {
             // wiki result has no data
             print("error")
             return
         }
         
-        // create favorited thing from WikipediaResult and build filename
-        let favoritedThing = FavoritedThing(title: result.title, description: result.description, imageFilename: result.title.trimmingCharacters(in: .whitespaces).appending(".jpg"))
+        // check if default filename is taken already (ignore file extension until filename is valid)
+        var filename = result.title.trimmingCharacters(in: .whitespaces)
+        
+        // check if file already exists, if so change filename
+        while PersistanceManager.sharedInstance.fileExistsInDocumentsDirectory(filename: filename.appending(".jpg")) {
+            // if so, add enough zeroes to filename until file exists
+            filename = filename.appending("0")
+        }
+        
+        // add file extension before proceeding
+        filename = filename.appending(".jpg")
+        
+        // create favorited thing from WikipediaResult
+        let favoritedThing = FavoritedThing(title: result.title, description: result.description, imageFilename: filename)
+        
+        // save favorited thing in local storage
+        self.favoritedThing = favoritedThing
         
         // save using persistance manager
         PersistanceManager.sharedInstance.saveFavoritedThing(thing: favoritedThing, image: image)
         
-        // set favorite button icon
-        favoriteIcon.setImage(UIImage(named: "favorited"), for: .normal)
+        // set isFavorited var to true
+        isFavorited = true
     }
     
+    func removeFavorite() {
+        // force unwrap favorited thing
+        guard let thing = favoritedThing else {
+            // error
+            print("error")
+            return
+        }
+        
+        // call function to remove thing from user defaults
+        PersistanceManager.sharedInstance.removeFavoritedThing(thing: thing)
+        
+        // set isFavorited var to false to update icon
+        isFavorited = false
+    }
 }
