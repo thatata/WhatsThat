@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class PhotoDetailsViewController: UIViewController {
     
@@ -22,10 +23,14 @@ class PhotoDetailsViewController: UIViewController {
     // variable to store FavoritedThing object (if it exists)
     var favoritedThing : FavoritedThing?
     
+    // variable to hold the wiki url template
+    var wikiUrl = "https://en.wikipedia.org/?curid=16161443"
+    
     // outlets for the image view and label
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var wikiText: UITextView!
     @IBOutlet weak var favoriteIcon: UIButton!
+    @IBOutlet weak var photoTitle: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,25 +69,15 @@ class PhotoDetailsViewController: UIViewController {
             return
         }
         
-        // set text (if description is blank, change description)
-        wikiText.text = result.description.isEmpty ? "No description available. Check the Wikipedia link for more information!" : result.description
+        // set text (if description is blank, or simply "refers to" another description, change it)
+        wikiText.text = (result.description.isEmpty || result.description.contains("may refer to")) ? "No description available. Check the Wikipedia link for more information!" : result.description
+        
+        // set the title (capitalized)
+        photoTitle.text = result.title.capitalized
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showWiki" {
-            // pass pageId of the wikipedia page to vc
-            let destinationVC = segue.destination as? SafariViewController
-            
-            // unwrap page id and destination vc
-            guard let result = wikiResult,
-                  let vc = destinationVC else {
-                print("error")
-                return
-            }
-            
-            // set page Id
-            vc.pageId = result.pageId
-        } else if segue.identifier == "showTweets" {
+        if segue.identifier == "showTweets" {
             // pass title as search query to the vc
             let destinationVC = segue.destination as? SearchTimelineViewController
             
@@ -102,9 +97,27 @@ class PhotoDetailsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @IBAction func wikiButtonPressed(_ sender: Any) {        
-        // perform segue to SafariViewController
-        performSegue(withIdentifier: "showWiki", sender: self)
+    @IBAction func wikiButtonPressed(_ sender: Any) {
+        // unwrap the wiki result
+        guard let result = wikiResult else {
+            print("error")
+            return
+        }
+        
+        // create the URL based on the result page ID
+        if let url = URL(string: wikiUrl.replacingOccurrences(of: "16161443", with: "\(result.pageId)")) {
+            // create configuration object for SafariViewController
+            let config = SFSafariViewController.Configuration()
+            
+            // enable reader if available
+            config.entersReaderIfAvailable = true
+            
+            // create instance of SafariViewController
+            let vc = SafariViewController(url: url, configuration: config)
+            
+            // present view controller
+            present(vc, animated: true, completion: nil)
+        }
     }
     
     @IBAction func tweetsButtonPressed(_ sender: Any) {
