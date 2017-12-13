@@ -71,7 +71,7 @@ class PhotoDetailsViewController: UIViewController {
             return
         }
         
-        // set text (if description is blank, or simply "refers to" another description, change it)
+        // set text **IF DESCRIPTION IS BLANK, OR SIMPLY "REFERS TO" ANOTHER DESCRIPTION, REFER TO WIKI**
         wikiText.text = (result.description.isEmpty || result.description.contains("may refer to")) ? "No description available. Check the Wikipedia link for more information!" : result.description
         
         // set the title (capitalized)
@@ -165,6 +165,9 @@ class PhotoDetailsViewController: UIViewController {
         
         // set favorite button icon
         favoriteIcon.setImage(isFavorited ? UIImage(named: "favorited") : UIImage(named: "notFavorited"), for: .normal)
+        
+        // show alert that this photo is (un)favorited
+        showError(errorTitle: isFavorited ? "Favorited!" : "Unfavorited!", errorMessage: isFavorited ? "You favorited this photo!" : "You unfavorited this photo!")
     }
     
     func addFavorite() {

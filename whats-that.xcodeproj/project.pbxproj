@@ -456,7 +456,7 @@
 				DEVELOPMENT_TEAM = 5Y9J8394CK;
 				INFOPLIST_FILE = "whats-that/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tarek.whats-that";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tarek.whats.that;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -472,7 +472,7 @@
 				DEVELOPMENT_TEAM = 5Y9J8394CK;
 				INFOPLIST_FILE = "whats-that/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tarek.whats-that";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tarek.whats.that;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -38,6 +38,7 @@ class PhotoIdentificationViewController: UIViewController, UITableViewDelegate, 
         // set delegate and data source to self
         resultsTable.delegate = self
         resultsTable.dataSource = self
+        resultsTable.separatorColor = UIColor.white
         
         // check if image was passed correctly before segue
         guard let image = image else {
@@ -68,6 +69,11 @@ class PhotoIdentificationViewController: UIViewController, UITableViewDelegate, 
         
         // set the text of the cell (capitalized for presentation)
         cell.textLabel?.text = googleVisionResults[indexPath.row].description.capitalized
+        cell.textLabel?.textColor = UIColor.white
+        
+        // set the background of the cell
+        let snowColor = UIColor(red: 118/255, green: 214/255, blue: 1, alpha: 1)
+        cell.contentView.backgroundColor = snowColor
         
         // set the alignment to center
         cell.textLabel?.textAlignment = .center
@@ -142,3 +148,4 @@ extension PhotoIdentificationViewController : WikipediaResultsDelegate {
         showError(errorTitle: "Error Fetching Wiki Results", errorMessage: "Could not fetch Wiki results! Please try again.")
     }
 }
+

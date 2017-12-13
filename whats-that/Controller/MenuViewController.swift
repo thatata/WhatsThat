@@ -12,7 +12,7 @@ import Photos
 import MBProgressHUD
 
 class MenuViewController: UIViewController {
-    
+        
     // image picker to take/select a photo
     private let imagePicker = UIImagePickerController()
     

@@ -18,6 +18,10 @@ class FavoritePhotosTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // set separator color of the table
+//        let snowColor = UIColor(red: 118/255, green: 214/255, blue: 1, alpha: 1)
+        tableView.separatorColor = UIColor.white
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +75,7 @@ class FavoritePhotosTableViewController: UITableViewController {
 
         // set text (capitalized)
         cell.cellText.text = favorites[indexPath.row].thingTitle.capitalized
+        cell.cellText.textColor = UIColor.white
         
         // load image of favorite from persistance manager
         let image = PersistanceManager.sharedInstance.loadImage(filename: favorites[indexPath.row].imageFilename)

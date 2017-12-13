@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // initialize TwitterKit
         Twitter.sharedInstance().start(withConsumerKey:"LFTy96syQxwKPZw2btG0lsxSX", consumerSecret:"z6ln6nNa6QSH1BJlCGVpMvkuEjrjqIeyTQwILN4BtlHlGdaLyJ")
         
+        UIApplication.shared.statusBarStyle = .lightContent
+        
         return true
     }
 
