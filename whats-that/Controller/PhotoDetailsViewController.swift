@@ -113,7 +113,23 @@ class PhotoDetailsViewController: UIViewController {
     }
     
     @IBAction func shareButtonPressed(_ sender: Any) {
-        print("share button pressed")
+        // unwrap wiki result to get title to share
+        guard let result = wikiResult else {
+            print("error")
+            return
+        }
+        
+        // set up activity view controller
+        let textToShare = ["I just found out what a \(result.title) is! Here's a description: \(result.description)"]
+        
+        // set up activity view controller
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        
+        // set popover presentation controller to avoid iPad crashes
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        
+        // present view controller
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     @IBAction func favoriteButtonPressed(_ sender: Any) {
