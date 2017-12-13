@@ -42,7 +42,8 @@ class PhotoIdentificationViewController: UIViewController, UITableViewDelegate, 
         // check if image was passed correctly before segue
         guard let image = image else {
             // error passing image to this view controller
-            print("error passing image to view controller")
+            // show error message
+            showError(errorTitle: "Error Passing Image to Photo ID", errorMessage: "Could not properly pass iamge  to this view controller. Please try again.")
             return
         }
         
@@ -105,6 +106,20 @@ class PhotoIdentificationViewController: UIViewController, UITableViewDelegate, 
             destinationVC?.wikiResult = self.wikiResult
         }
     }
+    
+    private func showError(errorTitle : String, errorMessage : String) {
+        // show an error message in an asynchronous task
+        DispatchQueue.main.async {
+            // create alert
+            let alert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: UIAlertControllerStyle.alert)
+            
+            // add ok action
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            
+            // present alert
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }
 
 extension PhotoIdentificationViewController : WikipediaResultsDelegate {
@@ -123,27 +138,7 @@ extension PhotoIdentificationViewController : WikipediaResultsDelegate {
     }
     
     func wikiResultNotFound() {
-        // error
-        print("results not found")
-    }
-}
-
-extension PhotoIdentificationViewController : GoogleVisionResultDelegate {
-    func googleResultsFound(results: [GoogleVisionResult]) {
-        // store results in local storage and update labels
-        self.googleVisionResults = results
-        
-        // update labels on the main UI thread
-        DispatchQueue.main.async {
-            // hide the loading screen
-            MBProgressHUD.hide(for: self.view, animated: true)
-            
-            // reload data for the table
-            self.resultsTable.reloadData()
-        }
-    }
-    
-    func googleResultsNotFound() {
-        print("results not found!")
+        // show error message
+        showError(errorTitle: "Error Fetching Wiki Results", errorMessage: "Could not fetch Wiki results! Please try again.")
     }
 }

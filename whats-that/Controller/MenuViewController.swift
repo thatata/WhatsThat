@@ -124,7 +124,6 @@ class MenuViewController: UIViewController {
                     }
                 } else {
                     // access denied, so show error message
-                    print("error??")
                     self.showError(errorTitle: "Photo Library Access", errorMessage: "Access denied.")
                 }
             })
@@ -190,8 +189,8 @@ class MenuViewController: UIViewController {
             
             // force unrwap results
             guard let results = googleVisionResults else {
-                // error
-                print("error storing google vision results")
+                // show error message
+                showError(errorTitle: "Error Unwrapping Google Vision Results", errorMessage: "Could not unwrap Google Vision results object. Please try again.")
                 return
             }
             
@@ -271,8 +270,8 @@ extension MenuViewController : GoogleVisionResultDelegate {
     }
     
     func googleResultsNotFound() {
-        // error
-        print("results not found!")
+        // show error message
+        showError(errorTitle: "Error Fetching Google Vision Results", errorMessage: "Could not fetch Google Vision results. Please try again.")
     }
 }
 

@@ -48,7 +48,8 @@ class PhotoDetailsViewController: UIViewController {
             
             // unwrap favorited thing
             guard let thing = favoritedThing else {
-                print("error")
+                // show error message
+                showError(errorTitle: "Error Unwrapping Favorited Thing", errorMessage: "Could not unwrap FavoritedThing object. Please try again.")
                 return
             }
             
@@ -65,7 +66,8 @@ class PhotoDetailsViewController: UIViewController {
         
         // unwrap Wikipedia result
         guard let result = wikiResult else {
-            print("error")
+            // show error message
+            showError(errorTitle: "Error Unwrapping Wiki Result", errorMessage: "Could not unwrap WikipediaResult object. Please try again.")
             return
         }
         
@@ -84,7 +86,8 @@ class PhotoDetailsViewController: UIViewController {
             // unwrap title and destination vc
             guard let result = wikiResult,
                   let vc = destinationVC else {
-                    print("error")
+                    // show error message
+                    showError(errorTitle: "Error Unwrapping Wiki Result and Destination VC", errorMessage: "Could not unwrap WikipediaResult object or destination view controller. Please try again.")
                     return
             }
             
@@ -100,7 +103,8 @@ class PhotoDetailsViewController: UIViewController {
     @IBAction func wikiButtonPressed(_ sender: Any) {
         // unwrap the wiki result
         guard let result = wikiResult else {
-            print("error")
+            // show error message
+            showError(errorTitle: "Error Unwrapping Wiki Result", errorMessage: "Could not unwrap WikipediaResult object. Please try again.")
             return
         }
         
@@ -117,6 +121,9 @@ class PhotoDetailsViewController: UIViewController {
             
             // present view controller
             present(vc, animated: true, completion: nil)
+        } else {
+            // show error message
+            showError(errorTitle: "Error Creating URL Object", errorMessage: "Could not successfully create URL object. Please try again.")
         }
     }
     
@@ -128,7 +135,8 @@ class PhotoDetailsViewController: UIViewController {
     @IBAction func shareButtonPressed(_ sender: Any) {
         // unwrap wiki result to get title to share
         guard let result = wikiResult else {
-            print("error")
+            // show error message
+            showError(errorTitle: "Error Unwrapping Wiki Result", errorMessage: "Could not unwrap WikipediaResult object. Please try again.")
             return
         }
         
@@ -162,8 +170,8 @@ class PhotoDetailsViewController: UIViewController {
     func addFavorite() {
         // force unwrap wiki result and image to save
         guard let result = wikiResult, let image = image else {
-            // wiki result has no data
-            print("error")
+            // show error message
+            showError(errorTitle: "Error Unwrapping Wiki Result and Image", errorMessage: "Could not unwrap WikipediaResult object or UIImage object. Please try again.")
             return
         }
         
@@ -195,8 +203,8 @@ class PhotoDetailsViewController: UIViewController {
     func removeFavorite() {
         // force unwrap favorited thing
         guard let thing = favoritedThing else {
-            // error
-            print("error")
+            // show error message
+            showError(errorTitle: "Error Unwrapping Favorited Thing", errorMessage: "Could not unwrap FavoritedThing object. Please try again.")
             return
         }
         
@@ -205,5 +213,19 @@ class PhotoDetailsViewController: UIViewController {
         
         // set isFavorited var to false to update icon
         isFavorited = false
+    }
+    
+    private func showError(errorTitle : String, errorMessage : String) {
+        // show an error message in an asynchronous task
+        DispatchQueue.main.async {
+            // create alert
+            let alert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: UIAlertControllerStyle.alert)
+            
+            // add ok action
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            
+            // present alert
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }

@@ -37,7 +37,8 @@ class FavoritePhotosTableViewController: UITableViewController {
         if segue.identifier == "showDetails" {
             // force unwrap favorite to pass to photo details
             guard let favorite = favoriteThing else {
-                print("error")
+                // show error message
+                showError(errorTitle: "Error Unwrapping Favorited Thing", errorMessage: "Could not unwrap FavoritedThing object. Please try again.")
                 return
             }
             
@@ -94,4 +95,17 @@ class FavoritePhotosTableViewController: UITableViewController {
         performSegue(withIdentifier: "showDetails", sender: self)
     }
     
+    private func showError(errorTitle : String, errorMessage : String) {
+        // show an error message in an asynchronous task
+        DispatchQueue.main.async {
+            // create alert
+            let alert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: UIAlertControllerStyle.alert)
+            
+            // add ok action
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            
+            // present alert
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }

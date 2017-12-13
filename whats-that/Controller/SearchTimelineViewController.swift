@@ -19,7 +19,8 @@ class SearchTimelineViewController: TWTRTimelineViewController {
 
         // force unwrap search query
         guard let query = searchQuery else {
-            print("error")
+            // show error message
+            showError(errorTitle: "Error Passing Search Query", errorMessage: "Could not properly pass title in as the search query. Please try again.")
             return
         }
         
@@ -32,21 +33,23 @@ class SearchTimelineViewController: TWTRTimelineViewController {
         // set to self
         self.dataSource = dataSource
     }
+    
+    private func showError(errorTitle : String, errorMessage : String) {
+        // show an error message in an asynchronous task
+        DispatchQueue.main.async {
+            // create alert
+            let alert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: UIAlertControllerStyle.alert)
+            
+            // add ok action
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            
+            // present alert
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

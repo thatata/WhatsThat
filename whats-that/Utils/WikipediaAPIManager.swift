@@ -46,7 +46,6 @@ class WikipediaAPIManager {
             
             //check for valid response with 200 (success)
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                print("no valid response!")
                 self.delegate?.wikiResultNotFound()
                 
                 return
@@ -54,7 +53,6 @@ class WikipediaAPIManager {
             
             // make sure JSON serialization works
             guard let data = data, let wikiJsonObject = try? JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] ?? [String:Any]() else {
-                print("couldn't convert data to json object")
                 self.delegate?.wikiResultNotFound()
                 
                 return

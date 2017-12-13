@@ -88,8 +88,7 @@ class PersistanceManager {
         // check if image is stored in documents directory, and return appropraite bool
         if fileManager.fileExists(atPath: imagePath) {
             return true
-        }
-        else {
+        } else {
             return false
         }
     }
@@ -109,13 +108,6 @@ class PersistanceManager {
             // otherwise, return nil
             return nil
         }
-//        let fileManager = NSFileManager.defaultManager()
-//        let imagePAth = (self.getDirectoryPath() as NSString).stringByAppendingPathComponent("apple.jpg")
-//        if fileManager.fileExistsAtPath(imagePAth){
-//            self.imageView.image = UIImage(contentsOfFile: imagePAth)
-//        }else{
-//            print("No Image")
-//        }
     }
     
     func saveImage(image : UIImage, filename : String) {
@@ -130,12 +122,5 @@ class PersistanceManager {
         
         // create file at path
         fileManager.createFile(atPath: paths, contents: imageData, attributes: nil)
-        
-//        let fileManager = NSFileManager.defaultManager()
-//        let paths = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString).stringByAppendingPathComponent("apple.jpg")
-//        let image = UIImage(named: "apple.jpg")
-//        print(paths)
-//        let imageData = UIImageJPEGRepresentation(image!, 0.5)
-//        fileManager.createFileAtPath(paths as String, contents: imageData, attributes: nil)
     }
 }

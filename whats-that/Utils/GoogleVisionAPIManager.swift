@@ -51,9 +51,10 @@ class GoogleVisionAPIManager {
         // serialize the data for POST request
         let jsonData = try? JSONSerialization.data(withJSONObject: jsonObject)
         
+        // unwrap json data
         guard let data = jsonData else {
             // error serializing
-            print("error serializing!")
+            self.delegate?.googleResultsNotFound()
             return
         }
         
@@ -65,7 +66,6 @@ class GoogleVisionAPIManager {
     }
     
     private func base64EncodeImage(_ image: UIImage) -> String {
-        
         // create image data from PNG representation
         let imagedata = UIImagePNGRepresentation(image)
         
@@ -76,12 +76,10 @@ class GoogleVisionAPIManager {
     }
     
     func runRequest(_ request: URLRequest) {
-        print("running request!")
         // run the request
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             // check for valid response with 200 (success)
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                print("no valid response")
                 self.delegate?.googleResultsNotFound()
                 
                 return
@@ -89,7 +87,6 @@ class GoogleVisionAPIManager {
             
             // ensure data is not null
             guard let data = data else {
-                print("data is null")
                 self.delegate?.googleResultsNotFound()
                 
                 return
@@ -101,7 +98,6 @@ class GoogleVisionAPIManager {
             
             // ensure json structure matches what we expected
             guard let root = decodedRoot else {
-                print("json structure doesn't match expectation")
                 self.delegate?.googleResultsNotFound()
                 
                 return
