@@ -124,6 +124,9 @@ class PhotoIdentificationViewController: UIViewController, UITableViewDelegate, 
             
             // present alert
             self.present(alert, animated: true, completion: nil)
+            
+            // hide the loading screen
+            MBProgressHUD.hide(for: self.view, animated: true)
         }
     }
 }
